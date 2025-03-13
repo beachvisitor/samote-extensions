@@ -1,4 +1,6 @@
 .idea
 node_modules
 *.env
+*.zip
+*.rar
 package-lock.json
