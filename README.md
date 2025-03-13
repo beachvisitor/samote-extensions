@@ -13,23 +13,33 @@
 ## Tunnel
 
 Creates a tunnel for the website, making it accessible anywhere in the world.
-Everything works thanks to [localtunnel](https://theboroer.github.io/localtunnel-www).
-It's a free service, so unfortunately there will mostly be long delays.
-When you enter a tunneled website, you will be confronted with its authorization and you
-will be asked for a password. The password is the public IP of the host (computer from which
-the program is running). The extension should detect it itself and send a message with the
-password to the host. In extreme case you can go to any website that defines the public IP
-and copy it from there.
+Everything works thanks to [ngrok](https://ngrok.com).
+This service provides a free but unfortunately very limited subscription,
+this is **the only option** available to everyone. The maximum amount of data sent
+is 1GB, which is enough for ~150 minutes of streaming, after that all I can
+suggest is to register a new account and do the same with it.
+Follow this steps to set up extensions:
+1. Go to the dashboard by authorizing the service;
+2. Take your token from the [Your Authtoken](https://dashboard.ngrok.com/get-started/your-authtoken) section;
+3. Open `index.js` and find the `options` variable;
+4. Set the value of the `authtoken` key to your token.
+5. Done!
+
+```javascript
+const options = {
+    authtoken: 'a1b2c3d4e5f6',
+    hostname: 'domain.ngrok-free.app'
+};
+```
 
 > [!NOTE]
-> You can setup a static subdomain of the tunnel by going to the `index.js`
-> file and changing the value of the `subdomain` key in the `options` object
-> to the subdomain you want. Example: `subdomain: 'your-subdomain'`.
-> The subdomain you choose may already be taken and you won't get it.
+> You can set a custom static [domain](https://dashboard.ngrok.com/domains) for the tunnel by
+> settings `hostname` to your domain similar to `authtoken`.
 
-There may be problems with tunneling:
-- Sometimes the tunnel may collapse and an error like `Error: connection refused:
-  localtunnel.me:8385 (check your firewall settings)` appears in logs, restart the 
-  program to restore functionality.
-- Also, sometimes instead of the selected subdomain can be given the usual random ones,
-  try to wait a bit and restart the program.
+## Starter
+
+Starts the stream, if not already running, when the user is authorized.
+
+## Hider
+
+Hides all users for the host.
